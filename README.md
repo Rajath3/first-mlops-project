@@ -60,7 +60,7 @@ uvicorn main:app --reload
 ```
 
 ### Sample Input for /predict
-
+#### Visit /docs and then you can test predict from there.
 ```
 {
   "Pregnancies": 2,
@@ -79,6 +79,13 @@ uvicorn main:app --reload
 docker build -t diabetes-prediction-model .
 ```
 
+### Docker tag and push
+
+```
+docker tag diabetes-prediction-model:latest rajathh/diabetes-prediction-model:latest
+docker push rajathh/diabetes-prediction-model
+```
+
 ### Run the Container
 
 ```
@@ -88,7 +95,20 @@ docker run -p 8000:8000 diabetes-prediction-model
 ## Deploy to Kubernetes
 
 ```
-kubectl apply -f diabetes-prediction-model-deployment.yaml
+kubectl apply -f k8s-deploy.yaml
+```
+
+## Option to run in kind
+
+### Create a cluster
+```
+kind create cluster --name mlops
+```
+
+### Port forward 
+
+```
+kubectl port-forward service/diabetes-api-service 1111:80 --address 0.0.0.0
 ```
 
 🙌 Credits
